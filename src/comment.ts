@@ -1,7 +1,7 @@
 import { markdownTable } from 'markdown-table';
 
 import { type LockChanges, type StausType } from './types';
-import { countStatuses, STATUS_ORDER } from './utils';
+import { countStatuses, splitNameChain, STATUS_ORDER } from './utils';
 
 const ASSETS_URL = {
   ADDED: 'https://git.io/J38HP',
@@ -32,7 +32,9 @@ export function createTable(lockChanges: Record<string, LockChanges>, groupByTyp
             : a[0].localeCompare(b[0])
         )
         .map(([key, { status, previous, current }]) => [
-          '`' + key + '`',
+          splitNameChain(key)
+            .map(key => '`' + key + '`')
+            .join(' → '),
           plainStatuses ? status : getStatusLabel(status),
           previous,
           current,

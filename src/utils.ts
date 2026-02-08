@@ -1,3 +1,4 @@
+import { isDeepStrictEqual } from 'node:util';
 import semverCoerce from 'semver/functions/coerce';
 import semverCompare from 'semver/functions/compare';
 import semverValid from 'semver/functions/valid';
@@ -27,12 +28,12 @@ function formatLockEntry({
       const data = packages[key];
       const versionDelimiter = data[0].lastIndexOf('@');
       const version = semverValid(semverCoerce(data[0].slice(versionDelimiter + 1))) ?? '0.0.0';
-      return [pkg, { name: pkg, version, parents: names.slice(0, -1) }];
+      return [key, { name: pkg ?? key, version, parents: names.slice(0, -1) }];
     })
   );
 }
 
-function splitNameChain(input: string): string[] {
+export function splitNameChain(input: string): string[] {
   const parts = input.split('/').filter(Boolean);
   const out = [];
 
@@ -69,7 +70,7 @@ export function diffLocks(previous: ParsedLock, current: ParsedLock): Record<str
   });
 
   Object.keys(currentPackages).forEach(key => {
-    if (!changes[key]) {
+    if (!changes[key] || !isDeepStrictEqual(changes[key].parents, currentPackages[key].parents)) {
       changes[key] = {
         parents: currentPackages[key].parents,
         previous: '-',
@@ -77,7 +78,10 @@ export function diffLocks(previous: ParsedLock, current: ParsedLock): Record<str
         status: STATUS.ADDED,
       };
     } else {
-      if (changes[key].previous === currentPackages[key].version) {
+      if (
+        changes[key].previous === currentPackages[key].version &&
+        isDeepStrictEqual(changes[key].parents, currentPackages[key].parents)
+      ) {
         delete changes[key];
       } else {
         changes[key].current = currentPackages[key].version;
