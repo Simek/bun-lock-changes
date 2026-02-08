@@ -14,6 +14,7 @@
     "test": "bun test"
   },
   "dependencies": {
+    "@actions/cache": "^6.0.0",
     "@actions/core": "^3.0.0",
     "@actions/github": "^9.0.0",
     "js-base64": "^3.7.8",
@@ -23,12 +24,12 @@
   },
   "devDependencies": {
     "@types/bun": "^1.3.8",
-    "@types/node": "24.10.12",
+    "@types/node": "25.2.2",
     "@types/semver": "^7.7.1",
     "esbuild": "^0.27.3",
-    "oxfmt": "0.27.0",
-    "oxlint": "1.41.0",
-    "tsx": "^4.21.0",
+    "oxfmt": "^0.28.0",
+    "oxlint": "^1.43.0",
+    "oxlint-tsgolint": "^0.11.4",
     "typescript": "^5.9.3"
   },
   "volta": {
