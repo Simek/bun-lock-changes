@@ -26,9 +26,9 @@
     "@types/node": "24.10.12",
     "@types/semver": "^7.7.1",
     "esbuild": "^0.27.3",
-    "oxfmt": "^0.28.0",
-    "oxlint": "^1.43.0",
-    "oxlint-tsgolint": "^0.11.4",
+    "oxfmt": "0.27.0",
+    "oxlint": "1.41.0",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   },
   "volta": {
