@@ -3,7 +3,9 @@ import { context, getOctokit } from '@actions/github';
 import { type operations } from '@octokit/openapi-types';
 import { type Api } from '@octokit/plugin-rest-endpoint-methods';
 import { Base64 } from 'js-base64';
-import path from 'node:path';
+import { existsSync, readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import JSONC from 'tiny-jsonc';
 
 import { createSummary, createTable } from './comment';
 import { type ParsedLock } from './types';
@@ -61,13 +63,13 @@ async function run() {
     const baseBranch = ref ?? default_branch;
     debug('Base branch: ' + baseBranch);
 
-    const lockFile = Bun.file(path.resolve(process.cwd(), inputPath));
+    const lockPath = resolve(process.cwd(), inputPath);
 
-    if (!(await lockFile.exists())) {
+    if (!existsSync(lockPath)) {
       throw Error('💥 The code has not been checkout or the lock file does not exist in this PR, aborting!');
     }
 
-    const lockContent = Bun.JSONC.parse(await lockFile.text()) as ParsedLock;
+    const lockContent = JSONC.parse(readFileSync(lockPath, { encoding: 'utf8' })) as ParsedLock;
     if (lockContent.lockfileVersion !== 1) {
       warning('Unsupported Bun lock version! Please report this issue in the action repository.');
     }
@@ -104,7 +106,7 @@ async function run() {
       throw Error('💥 Cannot fetch repository base lock file, aborting!');
     }
 
-    const baseLock = Bun.JSONC.parse(Base64.decode(baseLockData.data.content)) as ParsedLock;
+    const baseLock = JSONC.parse(Base64.decode(baseLockData.data.content)) as ParsedLock;
     const lockChanges = diffLocks(baseLock, lockContent);
     const lockChangesCount = Object.keys(lockChanges).length;
 

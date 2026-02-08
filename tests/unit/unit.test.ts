@@ -4,8 +4,8 @@ import { countStatuses, diffLocks, STATUS } from '../../src/utils';
 import { getTestLockContent } from '../testUtils';
 
 test('Bun - detect changes', async () => {
-  const contentA = await getTestLockContent('detect-changes', 'a.lock');
-  const contentB = await getTestLockContent('detect-changes', 'b.lock');
+  const contentA = getTestLockContent('detect-changes', 'a.lock');
+  const contentB = getTestLockContent('detect-changes', 'b.lock');
 
   const result = diffLocks(contentA, contentB);
 
