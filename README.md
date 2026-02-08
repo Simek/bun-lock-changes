@@ -53,11 +53,11 @@ jobs:
 
 ### Basic comment appearance
 
-<img alt="basic" src="https://user-images.githubusercontent.com/719641/116818857-c5029d80-ab6d-11eb-8b48-122b851c1d9e.png">
+<img alt="details" src="https://github.com/user-attachments/assets/bd9dd7fd-8ba6-416f-b517-85d81a2a0e39" />
 
 ### Comment appearance when `collapsibleThreshold` has been reached
 
-<img alt="summary" src="https://user-images.githubusercontent.com/719641/116819012-7efa0980-ab6e-11eb-99f1-15996b6f12b4.png">
+<img alt="summary" src="https://github.com/user-attachments/assets/6927a182-02de-4da5-ba98-1b9ea0bef11b" />
 
 ## 📋 Common issues
 
