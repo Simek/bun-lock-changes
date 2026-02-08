@@ -41,7 +41,7 @@ jobs:
 ### 🔌 Inputs
 
 | Input                  |      Required      |  Default   | Description                                                                                                       |
-|------------------------|:------------------:|:----------:|-------------------------------------------------------------------------------------------------------------------|
+| ---------------------- | :----------------: | :--------: | ----------------------------------------------------------------------------------------------------------------- |
 | `token`                | <ins>**Yes**</ins> |     –      | Repository `GITHUB_TOKEN` which allows action to make calls to the GitHub API (Octokit).                          |
 | `collapsibleThreshold` |         No         |    `25`    | Number of lock changes, which will result in collapsed comment content, and an addition of changes summary table. |
 | `failOnDowngrade`      |         No         |  `false`   | WFail the action when a dependency downgrade is detected. **Comment will still be posted.**                       |

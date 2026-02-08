@@ -3,7 +3,7 @@ import { expect, test } from 'bun:test';
 import { countStatuses, diffLocks, STATUS } from '../../src/utils';
 import { getTestLockContent } from '../testUtils';
 
-void test('Bun - detect changes', async () => {
+test('Bun - detect changes', async () => {
   const contentA = await getTestLockContent('detect-changes', 'a.lock');
   const contentB = await getTestLockContent('detect-changes', 'b.lock');
 
