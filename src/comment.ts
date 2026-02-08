@@ -34,7 +34,7 @@ export function createTable(lockChanges: Record<string, LockChanges>, groupByTyp
         .map(([key, { status, previous, current }]) => [
           splitNameChain(key)
             .map(key => '`' + key + '`')
-            .join(' => '),
+            .join(' → '),
           plainStatuses ? status : getStatusLabel(status),
           previous,
           current,
