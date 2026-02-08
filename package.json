@@ -6,7 +6,7 @@
   "author": "Simek <me@simek.dev>",
   "license": "MIT",
   "scripts": {
-    "package": "bun build src/action.ts --outdir dist --target=bun --minify",
+    "package": "bun build src/action.ts --outdir dist --target=node --minify",
     "lint": "oxlint --type-aware && oxfmt --check",
     "lint:fix": "oxlint --type-aware --fix && oxfmt",
     "optimize": "svgo -f ./assets",
