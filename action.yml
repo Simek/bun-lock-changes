@@ -29,4 +29,4 @@ inputs:
     default: 'false'
 runs:
   using: 'node24'
-  main: 'dist/action.js'
+  main: 'dist/index.js'
