@@ -2,6 +2,7 @@
   "name": "bun-lock-changes",
   "version": "0.1.0",
   "main": "dist/action.js",
+  "type": "commonjs",
   "repository": "github:Simek/bun-lock-changes",
   "author": "Simek <me@simek.dev>",
   "license": "MIT",
