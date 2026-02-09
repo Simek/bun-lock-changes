@@ -2,7 +2,7 @@ import { debug, getBooleanInput, getInput, setFailed, warning } from '@actions/c
 import { context, getOctokit } from '@actions/github';
 import { type operations } from '@octokit/openapi-types';
 import { type Api } from '@octokit/plugin-rest-endpoint-methods';
-import { Base64 } from 'js-base64';
+import { Buffer } from 'node:buffer';
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import JSONC from 'tiny-jsonc';
@@ -106,7 +106,7 @@ async function run() {
       throw Error('💥 Cannot fetch repository base lock file, aborting!');
     }
 
-    const baseLock = JSONC.parse(Base64.decode(baseLockData.data.content)) as ParsedLock;
+    const baseLock = JSONC.parse(Buffer.from(baseLockData.data.content, 'base64').toString('utf8')) as ParsedLock;
     const lockChanges = diffLocks(baseLock, lockContent);
     const lockChangesCount = Object.keys(lockChanges).length;
 
