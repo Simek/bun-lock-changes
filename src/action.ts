@@ -33,7 +33,8 @@ async function getCommentId(
 }
 
 function getBasePathFromInput(input: string) {
-  return input.lastIndexOf('/') ? input.substring(0, input.lastIndexOf('/')) : '';
+  const index = input.lastIndexOf('/');
+  return index !== -1 ? input.slice(0, index) : '';
 }
 
 async function run() {
@@ -90,10 +91,10 @@ async function run() {
       throw Error('💥 Cannot fetch repository base branch tree, aborting!');
     }
 
-    const baseLockSHA = baseTree.data.tree.filter(
+    const baseLockSHA = baseTree.data.tree.find(
       (file: operations['repos/get-content']['responses']['200']['content']['application/vnd.github.object']) =>
         file.path === 'bun.lock'
-    )[0].sha;
+    ).sha;
 
     debug('Base lockfile SHA: ' + baseLockSHA);
 
