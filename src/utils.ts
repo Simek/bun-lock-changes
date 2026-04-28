@@ -18,6 +18,15 @@ export function countStatuses(lockChanges: Record<string, LockChanges>, statusTo
   return Object.values(lockChanges).filter(({ status }) => status === statusToCount).length;
 }
 
+function normalizeVersion(input: string) {
+  return (
+    semverValid(input) ??
+    semverValid(input, { loose: true }) ??
+    semverValid(semverCoerce(input, { includePrerelease: true })) ??
+    '0.0.0'
+  );
+}
+
 function formatLockEntry({
   packages,
 }: ParsedLock): Record<string, { name: string; version: string; parents: string[] }> {
@@ -27,7 +36,7 @@ function formatLockEntry({
       const pkg = names.at(-1);
       const data = packages[key];
       const versionDelimiter = data[0].lastIndexOf('@');
-      const version = semverValid(semverCoerce(data[0].slice(versionDelimiter + 1))) ?? '0.0.0';
+      const version = normalizeVersion(data[0].slice(versionDelimiter + 1));
       return [key, { name: pkg ?? key, version, parents: names.slice(0, -1) }];
     })
   );
