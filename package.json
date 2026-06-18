@@ -25,8 +25,8 @@
     "@types/node": "24.13.1",
     "@types/semver": "^7.7.1",
     "esbuild": "^0.28.1",
-    "oxfmt": "^0.54.0",
-    "oxlint": "^1.69.0",
+    "oxfmt": "^0.55.0",
+    "oxlint": "^1.70.0",
     "oxlint-tsgolint": "^0.23.0",
     "typescript": "^6.0.3"
   },
