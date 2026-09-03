@@ -5,16 +5,16 @@ import semverValid from 'semver/functions/valid';
 
 import { type LockChanges, type ParsedLock, type StausType } from './types';
 
-export const STATUS: Record<StausType, StausType> = {
+export const STATUS = {
   ADDED: 'ADDED',
   UPDATED: 'UPDATED',
   DOWNGRADED: 'DOWNGRADED',
   REMOVED: 'REMOVED',
-};
+} satisfies Record<StausType, StausType>;
 
 export const STATUS_ORDER: StausType[] = [STATUS.ADDED, STATUS.UPDATED, STATUS.DOWNGRADED, STATUS.REMOVED];
 
-export function countStatuses(lockChanges: Record<string, LockChanges>, statusToCount: string) {
+export function countStatuses(lockChanges: LockChanges, statusToCount: string) {
   return Object.values(lockChanges).filter(({ status }) => status === statusToCount).length;
 }
 
@@ -64,8 +64,8 @@ export function splitNameChain(input: string): string[] {
   return out;
 }
 
-export function diffLocks(previous: ParsedLock, current: ParsedLock): Record<string, LockChanges> {
-  const changes: Record<string, LockChanges> = {};
+export function diffLocks(previous: ParsedLock, current: ParsedLock) {
+  const changes: LockChanges = {};
   const previousPackages = formatLockEntry(previous);
   const currentPackages = formatLockEntry(current);
 
@@ -103,5 +103,5 @@ export function diffLocks(previous: ParsedLock, current: ParsedLock): Record<str
     }
   });
 
-  return changes;
+  return changes satisfies LockChanges;
 }

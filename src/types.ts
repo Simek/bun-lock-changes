@@ -8,12 +8,14 @@ export type ParsedLock = {
   packages: Record<string, [string, string, Record<string, LockEntry>, string]>;
 };
 
-export type LockChanges = {
+export type LockChange = {
   previous: string;
   current: string;
   status: StausType;
   parents: string[];
 };
+
+export type LockChanges = Record<string, LockChange>;
 
 export type LockEntry = {
   dependencies?: Record<string, string>;

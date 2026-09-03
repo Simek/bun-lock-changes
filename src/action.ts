@@ -23,7 +23,7 @@ async function getCommentId(
     per_page: 100,
   });
 
-  if (!currentComments || !currentComments.data) {
+  if (!currentComments?.data) {
     throw Error('💥 Cannot fetch PR comments data, aborting!');
   }
 
@@ -87,7 +87,7 @@ async function run() {
       path: basePath,
     });
 
-    if (!baseTree || !baseTree.data || !baseTree.data.tree) {
+    if (!baseTree?.data?.tree) {
       throw Error('💥 Cannot fetch repository base branch tree, aborting!');
     }
 
@@ -103,7 +103,7 @@ async function run() {
       file_sha: baseLockSHA,
     });
 
-    if (!baseLockData || !baseLockData.data || !baseLockData.data.content) {
+    if (!baseLockData?.data?.content) {
       throw Error('💥 Cannot fetch repository base lock file, aborting!');
     }
 

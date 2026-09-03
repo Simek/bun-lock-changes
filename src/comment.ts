@@ -1,6 +1,6 @@
 import { markdownTable } from 'markdown-table';
 
-import { type LockChanges, type StausType } from './types';
+import { type LockChange, type StausType } from './types';
 import { countStatuses, splitNameChain, STATUS_ORDER } from './utils';
 
 const ASSETS_URL = {
@@ -21,7 +21,7 @@ function getStatusLabel(status: StausType) {
   return `[<sub><img alt="${status}" src="${ASSETS_URL[status]}" height="16" width="${ASSETS_WIDTH[status]}" /></sub>](#)`;
 }
 
-export function createTable(lockChanges: Record<string, LockChanges>, groupByType = false, plainStatuses = false) {
+export function createTable(lockChanges: Record<string, LockChange>, groupByType = false, plainStatuses = false) {
   return markdownTable(
     [
       ['Name', 'Status', 'Previous', 'Current'],
@@ -44,12 +44,12 @@ export function createTable(lockChanges: Record<string, LockChanges>, groupByTyp
   );
 }
 
-function createSummaryRow(lockChanges: Record<string, LockChanges>, status: keyof typeof ASSETS_URL) {
+function createSummaryRow(lockChanges: Record<string, LockChange>, status: keyof typeof ASSETS_URL) {
   const statusCount = countStatuses(lockChanges, status);
   return statusCount ? [getStatusLabel(status), statusCount.toString()] : [];
 }
 
-export function createSummary(lockChanges: Record<string, LockChanges>) {
+export function createSummary(lockChanges: Record<string, LockChange>) {
   return markdownTable(
     [['Status', 'Count'], ...STATUS_ORDER.map(status => createSummaryRow(lockChanges, status))].filter(
       row => row.length
